@@ -1,0 +1,23 @@
+{
+  "name": "lorenzo-filosofia-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aferranteportfolio/filosophy-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aferranteportfolio/filosophy-api/issues"
+  },
+  "homepage": "https://github.com/aferranteportfolio/filosophy-api#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongo": "^0.1.0"
+  }
+}
