@@ -34,7 +34,9 @@ app.listen(
     PORT,
     () => console.log(`its running on http://localhost:${PORT}`)
 )
- let dbPath = 'db.json'
+
+// let dbObject = require('./db.json')
+let dbPath = 'db.json'
 
 //data parsing middleware
 app.use(express.json())
@@ -42,15 +44,19 @@ app.use(express.urlencoded({extended: false}))
 const fs = require('fs')
 
 // static files 
-
 app.use(express.static("public"))
 app.use('/program', express.static(__dirname + 'public/program'))
 app.use('/views', express.static(__dirname + 'public/views'))
 
 
+// fs reading method
+
+
 // home view get route
 app.get("/home", (req, res) => {
-  
+
+    
+    // console.log(dbObject.author)
     res.sendFile("home.html", {root: "./public/views"})
 })
 
@@ -62,9 +68,15 @@ app.get("/public/program/frontEndProgram.js", (req, res) => {
 
 app.post("/postaquote", (req, res) => {
     const bodyData = { 
-        name : req.body.name,
-        age : req.body.age,
-        test : req.body.test}
+        author : req.body.author,
+        qoute : req.body.qoute,
+        }
+
+        let test = bodyData.qoute
+
+    // if (bodyData.qoute.toUpperCase == )    
+
+        //validation process, if correct proced, else throw error
         
         fs.open(dbPath, 'a', function(err, fd) {
 
@@ -75,19 +87,12 @@ app.post("/postaquote", (req, res) => {
                     if (err)
                       console.log(err);
                     else {
-                      console.log("File written successfully\n");
+                      console.log(dbPath);
                     }
                   } )
-
             }
         })
-
-
-        
-
-        console.log(typeof bodyData)
-// quotesDb.push(req.body)
-res.status(201).send('Created User')
+res.status(201).send('Quote Created')
 })
 
 
