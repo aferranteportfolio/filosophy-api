@@ -34,7 +34,7 @@ app.listen(
     PORT,
     () => console.log(`its running on http://localhost:${PORT}`)
 )
- let quotesDb = require('./db.json')
+ let dbPath = 'db.json'
 
 //data parsing middleware
 app.use(express.json())
@@ -66,19 +66,24 @@ app.post("/postaquote", (req, res) => {
         age : req.body.age,
         test : req.body.test}
         
-        
-        JSON.stringify(bodyData)
+        fs.open(dbPath, 'a', function(err, fd) {
 
+            if(err){
+                console.log('Cant open file')
+            }else {
+                fs.write(fd, JSON.stringify(bodyData), 0, JSON.stringify(bodyData).length, () => {
+                    if (err)
+                      console.log(err);
+                    else {
+                      console.log("File written successfully\n");
+                    }
+                  } )
 
-        fs.writeFile( 'db.json', JSON.stringify(bodyData), (err) => {
-            if (err)
-              console.log(err);
-            else {
-              console.log("File written successfully\n");
-              console.log("The written has the following contents:");
-              console.log(fs.readFileSync("books.txt", "utf8"));
             }
-          } )
+        })
+
+
+        
 
         console.log(typeof bodyData)
 // quotesDb.push(req.body)
